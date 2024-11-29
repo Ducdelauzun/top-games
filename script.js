@@ -84,3 +84,42 @@ function writeDom() {
 }
 
 writeDom()
+
+const editButtons = document.querySelectorAll(".edit")
+editButtons.forEach((btn) => {
+	btn.addEventListener("click", (e) => {
+		editModal(e.target.getAttribute("data-edit-id"))
+	})
+})
+
+const viewButtons = document.querySelectorAll(".view")
+viewButtons.forEach((btn) => {
+	btn.addEventListener("click", (e) => {
+		viewModal(e.target.getAttribute("data-view-id"))
+	})
+})
+
+function modifyModal(modalTitle, modalBody) {
+	// Écrir le nom du jeu dans le titre du modal
+	document.querySelector(".modal-title").textContent = modalTitle
+    console.log(modalTitle)
+	document.querySelector(".modal-body").innerHTML = modalBody
+}
+
+
+function viewModal(gameId) {
+	// console.log(gameId, gamesList)
+	// Trouvez le jeu en fonction de son identifiant
+	const result = gamesList.findIndex((game) => game.id === parseInt(gameId))
+	const modalBody = `<img src="${gamesList[result].imageUrl}" alt="${gamesList[result].title}" class="img-fluid" />`
+	modifyModal(gamesList[result].title, modalBody)
+}
+
+function editModal(gameId) {
+	console.log(gameId, gamesList)
+	// Trouvez le jeu en fonction de son identifiant
+	const result = gamesList.findIndex((game) => game.id === parseInt(gameId))
+	// passer une image comme corps du modal
+	const modalBody = `<h4>ajoutez un formulaire pour modifier le jeu ici</h4>`
+	modifyModal("Mode Edition", modalBody)
+}
